@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>create page</title>
+</head>
+<body>
+    <h1>글을 만들어보자!</h1>
+    <form action="{% url 'create' %}"method="POST">
+        {%csrf_token%}
+        <p>리스트 : <input type="text" name= "list"></p>
+        <p>알바 상세정보 : <input type="text" name= "information"></p>
+        <p>지역 : <textarea name="location"></textarea></p>
+        <p>시급 : <input type="text" name= "pay"></p>
+        <p>하는 일 : <textarea name="job"></textarea></p>
+        <p>지원자 수: <input type="text" name= "applicant"></p>
+        <button type="submit">작성</button>
+    </form>
+</body>
+</html>

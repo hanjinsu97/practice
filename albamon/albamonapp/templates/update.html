@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update page</title>
+</head>
+<body>
+    <h1>글을 수정해보자!</h1>
+    <form action="{% url 'update' id %}"method="POST">
+        {%csrf_token%}
+        <p>리스트 : <input type="text" name= "list" value="{{list}}"></p>
+        <p>알바 상세정보 : <input type="text" name= "information" value="{{information}}"></p>
+        <p>지역 : <textarea name="location">{{body}}</textarea></p>
+        <p>시급 : <input type="integer" name= "pay" value="{{pay}}"></p>
+        <p>하는 일 : <textarea name="job">{{body}}</textarea></p>
+        <p>지원자 수: <input type="integer" name= "applicant" value="{{applicant}}"></p>
+        <button type="submit">작성</button>
+    </form>
+    
+</body>
+</html>
