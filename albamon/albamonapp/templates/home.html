@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {text-align: center;}
+    </style>
+</head>
+<body>
+    <img src="https://uptime.com/media/website_profiles/albamon.com.png" width="500px">
+<div>
+    <h1>알바 구인</h1>
+    {% for i in blogs %}
+            <p>{{i.title}}</p>
+            <a href="{% url 'detail' i.id %}">{{i.list}}</a>
+    {% endfor %}
+    <br><br>
+    <a href="{% url 'create_page' %}">알바 등록하기</a>
+</div>
+</body>
+</html>

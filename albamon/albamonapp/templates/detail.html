@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>detail page</title>
+</head>
+<body>
+    <p>기업명: {{list}}</p>
+    <p>상세정보: {{information}}</p>
+    <p>장소: {{location}}</p>
+    <p>시급: {{pay}}</p>
+    <p>하는 일: {{job}}</p>
+    <p>지원자 수: {{applicant}}</p>
+    <a href="{% url 'update_page' id %}">수정</a>
+    <a href="{% url 'delete' id %}">삭제</a>
+    <br><br>
+    <a href="{% url 'plus' id %}">지원하기</a>
+    <a href="{% url 'minus' id %}">지원 취소하기</a>
+    <h4>-----------댓글-------------</h4>
+
+    {% for comment in comments%}
+    <p> {{comment.user}}: {{comment.content}} {{comment.date}}</p>
+    <a href="{% url 'delete_comment' id comment.id %}">삭제하기</a>
+    {% endfor %}
+
+    <h4>-----------댓글 작성하기----------</h4>
+
+    <form action="{% url 'create_comment' id %}" method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        <p>사용자 : <input type="text" name= "user"></p>
+        <p>댓글내용 : <input type="text" name= "content"></p>
+        <button type="submit">작성</button>
+    </form>
+    
+</body>
+</html>
