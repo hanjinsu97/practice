@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff3acaa5c6315cff76265a29a8568198&libraries=services,clusterer,drawing"></script>
+    <style>
+        .display-none{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    에리카 카페모음
+    <div id="map" style="width:500px;height:400px;"></div>
+    <div id = "name" class="display-none">
+        {% for cafe in cafes %}
+            {{cafe.name}},
+        {% endfor %}
+    </div>
+    <div id = "lat" class="display-none">
+        {% for cafe in cafes %}
+            {{cafe.latitude}},
+        {% endfor %}
+    </div>
+    <div id = "lng" class="display-none">
+        {% for cafe in cafes %}
+            {{cafe.longitude}},
+        {% endfor %}
+    </div>
+
+
+
+
+<script>
+        var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+        var options = { //지도를 생성할 때 필요한 기본 옵션
+                center: new kakao.maps.LatLng(37.300461, 126.838529), //지도의 중심좌표.
+                level: 3 //지도의 레벨(확대, 축소 정도)
+            };
+
+            var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+            var list_name = document.getElementById("name").innerText.split(",");
+            var list_lat = document.getElementById("lat").innerText.split(",");
+            var list_lng = document.getElementById("lng").innerText.split(",");
+
+            var cafeCoordinates = new Array();
+
+            for (var idx=0; idx<list_lat.length; idx++){
+                var latitude = list_lat[idx];
+                var longitude = list_lng[idx];
+                cafeCoordinates.push(new kakao.maps.LatLng(latitude, longitude));
+            }
+
+            for(var idx=0; idx<cafeCoordinates.length; idx++){
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: cafeCoordinates[idx],
+                    title : list_name[idx]
+                });
+                var infoWindow = new kakao.maps.InfoWindow({
+                content : list_name[idx]
+                });
+            
+                (function(marker, infoWindow){
+                kakao.maps.event.addListener(marker, 'mouseover', function(){
+                    infoWindow.open(map, marker);
+                });
+                kakao.maps.event.addListener(marker, 'mouseout', function(){
+                    infoWindow.close();
+                });
+                }) (marker, infoWindow);
+                }
+
+    marker.setMap(map);
+</script>
+</body>
+</html>
